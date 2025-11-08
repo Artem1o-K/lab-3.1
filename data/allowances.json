@@ -1,0 +1,30 @@
+[
+  {
+    "city": "Москва",
+    "daily_allowance": 1000
+  },
+  {
+    "city": "Санкт-Петербург",
+    "daily_allowance": 900
+  },
+  {
+    "city": "Казань",
+    "daily_allowance": 800
+  },
+  {
+    "city": "Екатеринбург",
+    "daily_allowance": 850
+  },
+  {
+    "city": "Новосибирск",
+    "daily_allowance": 750
+  },
+  {
+    "city": "Сочи",
+    "daily_allowance": 1200
+  },
+  {
+    "city": "Владивосток",
+    "daily_allowance": 1100
+  }
+]
