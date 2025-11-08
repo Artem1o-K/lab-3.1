@@ -1,0 +1,47 @@
+# Docker Compose v2 - используйте команды: docker compose (без дефиса)
+# Для Linux/macOS добавьте sudo: sudo docker compose
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: employee_postgres
+    environment:
+      POSTGRES_DB: employee_expenses
+      POSTGRES_USER: analyst
+      POSTGRES_PASSWORD: analyst123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - employee_network
+
+  jupyter:
+    build: .
+    container_name: employee_jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work/notebooks
+      - ./data:/home/jovyan/work/data
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: employee_expenses
+      POSTGRES_USER: analyst
+      POSTGRES_PASSWORD: analyst123
+    depends_on:
+      - postgres
+    networks:
+      - employee_network
+    command: start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''
+
+volumes:
+  postgres_data:
+
+networks:
+  employee_network:
+    driver: bridge
+    
